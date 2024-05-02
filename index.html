@@ -102,8 +102,11 @@
                                 </div>
 
                                 <div class="d-flex align-items-center justify-content-between mt-5">
-                                    <button type="button" class="intern-d-btn bg-orange gotodsb-btn">Skip</button>
-                                    <button type="button" class="intern-d-btn bg-blue" data-bs-toggle="modal" data-bs-target="#successModal">Next &nbsp; <i class="fa fa-arrow-alt-circle-right"></i></button>
+                                    <a href="dashboard.html" type="button" class="intern-d-btn bg-orange gotodsb-btn">Skip</a>
+                                    <button type="button" 
+                                        class="intern-d-btn bg-blue d-flex align-items-center" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#successModal">Next &nbsp; <i class="fa fa-arrow-alt-circle-right"></i></button>
                                  </div>
                             </form>
                           </div>
@@ -127,7 +130,7 @@
                       <div class="text-center mb-2">
                         You have successfully created a proguide account.
                       </div>
-                        <button type="button"  class="new-discussion-btn w-100 mb-2 gotodsb-btn">Get started</button>
+                        <a href="dashboard.html"  class="new-discussion-btn d-block text-center w-100 mb-2">Get started</a>
                   </div>
              </div>
         </div>
@@ -149,23 +152,21 @@
     <script src="asset/js/main.js"></script>
     <script>
         $(document).ready(function(){
-            $('#gotodsb-btn').on('click', function(){
-                location.href = 'dashboard.html';
-            })
 
             $('.input-tag').on('keypress', function(event) {
                 var _this = $(this);
 
-                if (event.which === 13 || event.which === 44) { 
+                if (event.which === 13 || event.which === 44 || _this.val().indexOf(',') !== -1) { 
                     event.preventDefault();
                     var inputValue = $(this).val().trim();
+                     inputValue = inputValue.replace(/,/g, '');
                     if (inputValue !== '') {
                         var html = `
                             <div class="tag">${inputValue} &nbsp; <span class="delete-tag cursor-p"><i class="fa fa-times-circle"></i></span></div>
                         `;
                         _this.siblings('.tags').append(html);
-                        _this.val('');
                     }
+                    _this.val('');
                 }
             });
 
