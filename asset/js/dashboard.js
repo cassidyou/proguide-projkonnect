@@ -6,6 +6,9 @@ $(document).ready(function(){
 
      barChart(yearlyData, yearlyLabel, 'studentChart', 'Student growth');
 
+     var screenSize = window.innerWidth;
+    
+     var thickness = screenSize <= 576 ? 15 : 30;
      
      function barChart(data, label, idName, labelName) {
           idName.height = 'auto';
@@ -22,7 +25,7 @@ $(document).ready(function(){
                               borderColor: 'transparent',
                               borderWidth: "0",
                               borderRadius: 0,
-                              barThickness: 30,
+                              barThickness: thickness,
                               hoverBackgroundColor: '#000000',
                               backgroundColor: '#007CFE',
                               

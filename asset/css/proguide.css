@@ -199,6 +199,13 @@
      background-color: var(--white-color);
 }
 
+.new-discussion-btn.outline-blue{
+     border: 1px solid #007CFE;
+     background-color: white;
+     color: black;
+     
+}
+
 .new-discussion-btn.bg-primary{
      background-color: var(--primary-color)!important;
 }
@@ -228,4 +235,15 @@
      justify-content: flex-end;
      gap: 10px;
      opacity: .6;
+}
+
+
+@media (max-width: 425px){
+     #studentChart{
+          min-height: 200px!important;
+     }
+}
+
+[data-bs-toggle="modal"]{
+     cursor: pointer;
 }
