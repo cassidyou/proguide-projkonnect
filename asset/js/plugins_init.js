@@ -165,6 +165,19 @@ $(document).ready(function () {
     lengthChange: false,
 
   });
+  var table = $('#livelearn-table').DataTable({
+    searching: true,
+    paging: true,
+    select: true,
+    lengthChange: false,
+    language: {
+      paginate: {
+        next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+        previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+      }
+    }
+
+  });
 
 
 

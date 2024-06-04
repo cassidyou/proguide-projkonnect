@@ -80,6 +80,12 @@
                                 </a>
                             </li>
                             <li class="adm-sidebar-link-item">
+                                <a href="student-assessment.html" class="sidebar-link">
+                                    <img src="asset/img/users-icon.png" alt="">
+                                    Student Assessment
+                                </a>
+                            </li>
+                            <li class="adm-sidebar-link-item">
                                 <a href="payment.html" class="sidebar-link">
                                     <img src="asset/img/wallet-icon.svg" alt="">
                                     payments & Revenue
@@ -283,7 +289,7 @@
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-3 mb-5">
                                             <button type="button" id="add-chapter-btn" class="new-discussion-btn"><img src="asset/img/plus_icon.png" alt="icon"> &nbsp; Add Chapter</button>
-                                            <button type="button" class="new-discussion-btn"><img src="asset/img/document-upload-icon.png" alt="icon"> &nbsp; Publish Course</button>
+                                            <button type="button" class="new-discussion-btn" id="publishCourseBtn"><img src="asset/img/document-upload-icon.png" alt="icon"> &nbsp; Publish Course</button>
                                         </div>
                                     </form>
                                    </div>
@@ -422,12 +428,90 @@
                       <div class="text-center mb-2">
                         You have successfully registered for a LiveLearn Session.
                       </div>
-                        <button type="button" class="new-discussion-btn w-100 mb-2">Go Back</button>
+                        <button type="button" data-bs-dismiss="modal" class="new-discussion-btn w-100 mb-2">Go Back</button>
                   </div>
              </div>
         </div>
     </div>
 
+    <div class="modal fade" id="popupSuccessModal" tabindex="-1" aria-labelledby="popupSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+             <div class="modal-content">
+                  <div class="modal-body rounded">
+                    <div class="d-flex align-items-center justify-content-center mb-2 mt-3">
+                        <img src="asset/img/success-star-checked.png" width="50px" alt="icon">
+                    </div>
+                       <h3 class="text-center mb-2">Success!</h3>
+                      <div class="text-center mb-2">
+                        Your course creation was successful.
+                      </div>
+                        <button type="button" data-bs-dismiss="modal" class="new-discussion-btn w-100 mb-2">Go Back</button>
+                  </div>
+             </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+             <div class="modal-content">
+                  <div class="modal-body rounded">
+                    <form action="" class="ai-question-form">
+                        <div class="form-group mb-4">
+                            <label for="">No of questions</label>
+                            <input type="number" value="1" min="1" name="" class="form-control custom-control">
+                        </div>
+                        <div class="dashed-bottom-border mb-4"></div>
+                        <div class="row">
+                            <div class="col-sm-4 col-md-3 mb-3">
+                                <div class="ai-modal-card">
+                                    <img src="asset/img/course-img.png" class="img" alt="">
+                                    <label for="question1" class="label-for-checkbox">
+                                        <i class="fa fa-check checker"></i>
+                                        <input type="checkbox" checked name="question1" id="question1" class="d-none">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-3 mb-3">
+                                <div class="ai-modal-card">
+                                    <img src="asset/img/course-img.png" class="img" alt="">
+                                    <label for="question2" class="label-for-checkbox">
+                                        <i class="fa fa-check checker d-none"></i>
+                                        <input type="checkbox" name="question2" id="question2" class="d-none">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-3 mb-3">
+                                <div class="ai-modal-card">
+                                    <img src="asset/img/course-img.png" class="img" alt="">
+                                    <label for="question3" class="label-for-checkbox">
+                                        <i class="fa fa-check checker d-none"></i>
+                                        <input type="checkbox" name="question3" id="question3" class="d-none">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-3 mb-3">
+                                <div class="ai-modal-card">
+                                    <img src="asset/img/course-img.png" class="img" alt="">
+                                    <label for="question4" class="label-for-checkbox">
+                                        <i class="fa fa-check checker d-none"></i>
+                                        <input type="checkbox" name="question4" id="question4" class="d-none">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="new-discussion-btn w-100 mb-3 mt-4">Generate questions</button>
+                        <small class="text-warning">Questions will be sent to your email for approval. This may take a couple of minutes or hours.</small>
+                    </form>
+                  </div>
+             </div>
+        </div>
+    </div>
+
+    <input type="hidden" id="quizPopupBtn" data-bs-toggle="modal"
+    data-bs-target="#popupModal">
+
+    <input type="hidden" id="quizPopupBtnSuccess" data-bs-toggle="modal"
+    data-bs-target="#popupSuccessModal">
 
 
     <!-- JS FILES -->
@@ -544,6 +628,29 @@
                 `;
 
                 $('#course-chapters').append(html);
+            });
+
+            $('#publishCourseBtn').on('click', function(){
+
+                swal.fire({
+                    title: "Are you sure you want to submit?",
+                    showConfirmButton: true,
+                    closeOnConfirm: true,
+                    confirmButtonText: 'Yes, submit',
+                    showCancelButton: true,
+                }).then((result) => {
+                    $('#quizPopupBtn').click();
+                });
+            });
+
+            $('.label-for-checkbox').on('click', function(){
+                $(this).children('.checker').toggleClass('d-none');
+            });
+
+            $('.ai-question-form').on('submit', function(e){
+                e.preventDefault();
+
+                $('#quizPopupBtnSuccess').click();
             });
         })
     </script>
